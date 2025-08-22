@@ -23,17 +23,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         
-        val num1EditText = findViewById<EditText>(id=R.id.num1EditText)
-        val num2EditText = findViewById<EditText>(id=R.id.num2EditText)
-        val num3EditText = findViewById<EditText>(id=R.id.num3EditText)
-        val calculationButton= findViewById<Button>(id=R.id.calculateButton)
-        val resultTextView = findViewById<TextView>(id=R.id.resultTextView)
-viewModel.promedio.observe(owner = this, Observe {promedio ->
-    resultTextView.text = "Resultado: ${String.formate("%.2f", promedio)}"
+        val num1EditText = findViewById<EditText>(R.id.etCalificacion1)
+        val num2EditText = findViewById<EditText>(R.id.etCalificacion2)
+        val num3EditText = findViewById<EditText>(R.id.etCalificacion3)
+        val calculationButton= findViewById<Button>(R.id.btnCalcular)
+        val resultTextView = findViewById<TextView>(R.id.tvResultado)
+viewModel.promedio.observe(this, Observer {promedio ->
+    resultTextView.text = "Resultado: ${String.format("%.2f", promedio)}"
 })
 
-viewModel.guardarMensaje.observe(owner = this, Observer {message ->
-    Toast.makeText(context = this, text = message, duration = Toast.LENGTH_SHORT).show()
+viewModel.guardarMensaje.observe(this, Observer {message ->
+    Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
 })
 
 calculationButton.setOnClickListener {
@@ -44,7 +44,7 @@ calculationButton.setOnClickListener {
         
         viewModel.calcularPromedio(n1, n2, n3)
     } catch (e: Exception){
-        Toast.makeText(context = this, text = "Ingrese valores válidos", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Ingrese valores válidos", Toast.LENGTH_SHORT).show()
     }
         }
     }

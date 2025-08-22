@@ -9,20 +9,15 @@ class MainViewModel : ViewModel(){
     private val repository = FakeRepository()
 
     private val _promedio = MutableLiveData<Double>()
-    val promedio = LiveData<Double> get() = _promedio
+    val promedio : LiveData<Double> get() = _promedio
 
     private val _guardarMensaje = MutableLiveData<String>()
-    val guardarMensaje = LiveData<String> get() = _guardarMensaje
+    val guardarMensaje : LiveData<String> get() = _guardarMensaje
 
     fun calcularPromedio(n1: Double, n2: Double, n3: Double){
-        val resul = (n1 +n2 +n3) / 3
+        val result = (n1 +n2 +n3) / 3
         _promedio.value = result
-        _guardarMensaje.value = repository.guadarPromedio(avarege=result)
+        _guardarMensaje.value = repository.guardarPromedio(result)
     }
 }
 
-class FakeRepository{
-    fun guardarPromedio(promedio: Double):String{
-        return "Promedio ${String.format("%.2f", promedio)} guardado exitosamente."
-    }
-}
